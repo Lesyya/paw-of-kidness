@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    /* Default typography */
+    .font-h1 {
+        @apply text-4xl;
+        @apply font-extrabold;
+        @apply tracking-tight;
+        @apply lg:text-5xl;
+    }
+
+    .font-h2 {
+        @apply text-3xl;
+        @apply font-semibold;
+        @apply tracking-tight;
+    }
+
+    .font-h3 {
+        @apply text-2xl;
+        @apply font-semibold;
+        @apply tracking-tight;
+    }
+
+    .font-h4 {
+        @apply text-xl;
+        @apply font-semibold;
+        @apply tracking-tight;
+    }
+
+    .font-sm {
+        @apply text-sm;
+    }
+
+    .font-md {
+        @apply leading-7;
+    }
+
+    .font-lg {
+        @apply text-lg;
+    }
+
+    /* Garamond Typography */
+    .font-h1-garamond {
+        @apply font-garamond;
+        @apply text-[80px];
+        @apply font-extrabold;
+        @apply tracking-normal;
+    }
+
+    .font-h2-garamond {
+        @apply font-garamond;
+        @apply text-[30px];
+        @apply font-medium;
+        @apply tracking-normal;
+    }
+
+    .font-h3-garamond {
+        @apply font-garamond;
+        @apply text-[24px];
+        @apply font-medium;
+        @apply tracking-normal;
+    }
+}
