@@ -1,0 +1,100 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id       Int       @id @default(autoincrement())
+  name     String
+  number   String    @unique
+  email    String    @unique
+  password String
+  isAdmin  Boolean   @default(false)
+  Request  Request[]
+}
+
+model Animal {
+  id           Int              @id @default(autoincrement())
+  name         String
+  description  String
+  avatar_url   String
+  sex          String
+  age          String
+  kind         String
+  breed        String
+  size         String
+  color        String
+  status       String
+  isSterilized Boolean
+  isPriority   Boolean
+  Request      Request[]
+  preferenceId Int
+  preference   AnimalPreference @relation(fields: [preferenceId], references: [id])
+}
+
+model AnimalPreference {
+  id                   Int      @id @default(autoincrement())
+  agePref              String
+  ageImportance        Int
+  childrenPref         String
+  childrenImportance   Int
+  petPref              String
+  petImportance        Int
+  placePref            String
+  placeImportance      Int
+  lifestylePref        String
+  lifestyleImportance  Int
+  timePref             String
+  timeImportance       Int
+  experiencePref       String
+  experienceImportance Int
+  Animal               Animal[]
+}
+
+model UserInfo {
+  id         Int       @id @default(autoincrement())
+  age        String
+  children   String
+  pet        String
+  place      String
+  lifestyle  String
+  time       String
+  experience String
+  Request    Request[]
+}
+
+model UserPreference {
+  id                   Int       @id @default(autoincrement())
+  kindPref             String
+  kindImportance       Int
+  sexPref              String
+  sexImportance        Int
+  agePref              String
+  ageImportance        Int
+  breedPref            String
+  breedImportance      Int
+  sizePref             String
+  sizeImportance       Int
+  colorPref            String
+  colorImportance      Int
+  sterilizedPref       String
+  sterilizedImportance Int
+  Request              Request[]
+}
+
+model Request {
+  id           Int            @id @default(autoincrement())
+  status       String
+  userId       Int
+  user         User           @relation(fields: [userId], references: [id])
+  infoId       Int
+  info         UserInfo       @relation(fields: [infoId], references: [id])
+  preferenceId Int
+  preference   UserPreference @relation(fields: [preferenceId], references: [id])
+  animalId     Int?
+  animal       Animal?        @relation(fields: [animalId], references: [id])
+}
