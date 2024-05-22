@@ -10,9 +10,11 @@ const AnimalDetailsPage: React.FC = () => {
   const router = useRouter();
   const { request } = useRequest();
 
+  const animalId = router.query.id ? Number(router.query.id) : null;
+
   const { data: animal } = api.animal.getAnimalDetails.useQuery(
     { id: Number(router.query.id), userInfo: request?.info },
-    { refetchOnWindowFocus: false },
+    { refetchOnWindowFocus: false, enabled: !!animalId },
   );
 
   const pageTitle = `${animal?.name} — Лапа Добра`;
