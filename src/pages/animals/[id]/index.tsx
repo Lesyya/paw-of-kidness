@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
@@ -10,10 +10,24 @@ const AnimalDetailsPage: React.FC = () => {
   const router = useRouter();
   const { request } = useRequest();
 
-  const { data: animal } = api.animal.getAnimalDetails.useQuery(
-    { id: Number(router.query.id), userInfo: request?.info },
-    { refetchOnWindowFocus: false, retry: 3 },
-  )
+  const [animalId, setAnimalId] = useState<number | null>(null);
+
+  const { data: animal, refetch } = api.animal.getAnimalDetails.useQuery(
+    { id: animalId!, userInfo: request?.info },
+    {
+      enabled: !!animalId,
+      refetchOnWindowFocus: false,
+      retry: 3,
+    }
+  );
+
+  useEffect(() => {
+    if (router.query.id) {
+      setAnimalId(Number(router.query.id));
+      refetch();
+    }
+  }, [router.query.id]);
+
 
   const pageTitle = `${animal?.name} — Лапа Добра`;
   const pageDescription = animal?.description;
