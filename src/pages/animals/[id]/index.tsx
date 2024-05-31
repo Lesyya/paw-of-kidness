@@ -28,9 +28,8 @@ const AnimalDetailsPage: React.FC = () => {
     }
   }, [router.query.id]);
 
-
-  const pageTitle = `${animal?.name} — Лапа Добра`;
-  const pageDescription = animal?.description;
+  const pageTitle = `${animal?.name || 'Тваринка'} — Лапа Добра`;
+  const pageDescription = animal?.description || 'Місце де ти можеш знайти всю інформацію про наших тваринок та дізнатися більше про них.'
 
   return (
     <>
